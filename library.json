@@ -11,8 +11,8 @@
   "platforms": ["espressif8266", "espressif32"],
   "dependencies" :
   [
-    {"name": "ArdinoJson"},
+    {"name": "ArduinoJson"},
     {"name": "Nanopb"}
   ],
-  "version": "0.1"
+  "version": "0.1.1"
 }
