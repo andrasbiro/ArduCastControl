@@ -204,8 +204,7 @@ uint8_t ArduCastControl::pbDecodeVarint(uint8_t *bufferStart, uint32_t *decodedI
   do {
     decoded++;
     //Serial.printf("curr=0x%02x, in=0x%02x, d=%d\n", *decodedInt, bufferStart[decoded], decoded);
-    *decodedInt <<= 7;
-    *decodedInt |= bufferStart[decoded] & 0x7f;
+    *decodedInt |= (bufferStart[decoded] & 0x7f) << (decoded * 7);
   } while ( bufferStart[decoded] & 0x80 );
   return decoded+1;
 }
@@ -215,7 +214,8 @@ uint8_t ArduCastControl::pbDecodeHeader(uint8_t *bufferStart, uint8_t *tag, uint
   *tag = bufferStart[0] >> 3;
   uint8_t processedBytes = 1;
   //Serial.printf("desc=0x%02x\n", bufferStart[0]);
-  processedBytes += pbDecodeVarint(bufferStart+1, lengthOrValue);
+  if (*wire == 2)
+    processedBytes += pbDecodeVarint(bufferStart+1, lengthOrValue);
   return processedBytes;
 }
 
