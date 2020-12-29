@@ -214,8 +214,7 @@ uint8_t ArduCastControl::pbDecodeHeader(uint8_t *bufferStart, uint8_t *tag, uint
   *tag = bufferStart[0] >> 3;
   uint8_t processedBytes = 1;
   //Serial.printf("desc=0x%02x\n", bufferStart[0]);
-  if (*wire == 2)
-    processedBytes += pbDecodeVarint(bufferStart+1, lengthOrValue);
+  processedBytes += pbDecodeVarint(bufferStart+1, lengthOrValue);
   return processedBytes;
 }
 
